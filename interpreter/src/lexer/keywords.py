@@ -6,6 +6,7 @@ from interpreter.src.parser.operation import OperationType
 
 
 Keyword = NewType('Keyword', str)
+Register = NewType('Register', str)
 
 
 LANGUAGE_OPTYPES: Dict[Keyword, OperationType] = {
@@ -31,3 +32,16 @@ LANGUAGE_OPTYPES: Dict[Keyword, OperationType] = {
 
 
 LANGUAGE_KEYWORDS: List[Keyword] = list(LANGUAGE_OPTYPES.keys())
+
+
+LANGUAGE_REGISTERS: List[Register] = [
+    Register("r1"),
+    Register("r2"),
+    Register("r3"),
+    Register("r4"),
+    Register("A"),
+    Register("EQ"),
+    Register("LT"),
+    Register("GT"),
+    Register("NE"),
+]
