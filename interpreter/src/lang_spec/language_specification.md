@@ -7,7 +7,7 @@ SimpleLang is a subset of assembler languages implemented in virtual machine
 ### Registers
 
 In SimpleLang we have only 4 General-Purpose registers `r1, r2, r3, r4`.
-One accumulator register `A` and 3 conditional registers `EQ`, `GT`, `LT`, `NE`
+One accumulator register `A` and 4 conditional registers `EQ`, `GT`, `LT`, `NE`
 
 ### Operations
 
