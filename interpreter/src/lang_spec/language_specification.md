@@ -23,4 +23,4 @@ In SimpleLang only that operations is allowed and implemented:
 7) `LABEL lbl` - make that lbl points to that line of code
 8) `JMP lbl` - jump to line that lbl points
 9) `CMP A, r` - compare value of accumulator with second operand and set specific registers
-10) `JMP_EQ, JMP_LT, JMP_GT` - conditional jumps
+10) `JMP_EQ, JMP_LT, JMP_GT, JMP_NE` - conditional jumps
