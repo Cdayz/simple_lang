@@ -7,7 +7,7 @@ SimpleLang is a subset of assembler languages implemented in virtual machine
 ### Registers
 
 In SimpleLang we have only 4 General-Purpose registers `r1, r2, r3, r4`.
-One accumulator register `A` and 3 conditional registers `EQ`, `GT`, `LT`
+One accumulator register `A` and 3 conditional registers `EQ`, `GT`, `LT`, `NE`
 
 ### Operations
 
@@ -21,6 +21,6 @@ In SimpleLang only that operations is allowed and implemented:
 5) `SUB A, r` - substract accumulator by value of second operand
 6) `MUL A, r` - multiply accumulator by value of second operand
 7) `LABEL lbl` - make that lbl points to that line of code
-8) `JMP lbl` - jump to line that lbl points 
+8) `JMP lbl` - jump to line that lbl points
 9) `CMP A, r` - compare value of accumulator with second operand and set specific registers
 10) `JMP_EQ, JMP_LT, JMP_GT` - conditional jumps
