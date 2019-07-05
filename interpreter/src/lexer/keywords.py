@@ -1,25 +1,33 @@
 """Module with basic language keywords."""
 
-from typing import NewType, List
+from typing import NewType, List, Dict
+
+from interpreter.src.parser.operation import OperationType
+
 
 Keyword = NewType('Keyword', str)
 
 
-LANGUAGE_KEYWORDS: List[Keyword] = [
+LANGUAGE_OPTYPES: Dict[Keyword, OperationType] = {
     # MATH
-    "ADD",
-    "SUB",
-    "DIV",
-    "MUL",
+    Keyword("ADD"): OperationType.Binary,
+    Keyword("SUB"): OperationType.Binary,
+    Keyword("DIV"): OperationType.Binary,
+    Keyword("MUL"): OperationType.Binary,
     # Pointers, Equations
-    "MOV",
-    "CMP",
+    Keyword("MOV"): OperationType.Binary,
+    Keyword("CMP"): OperationType.Binary,
     # JUMPS
-    "JMP",
-    "JMP_EQ",
-    "JMP_GT",
-    "JMP_LT",
-    "JMP_NE",
+    Keyword("JMP"): OperationType.Unary,
+    Keyword("JMP_EQ"): OperationType.Unary,
+    Keyword("JMP_GT"): OperationType.Unary,
+    Keyword("JMP_LT"): OperationType.Unary,
+    Keyword("JMP_NE"): OperationType.Unary,
     # Labeling
-    "LABEL"
-]
+    Keyword("LABEL"): OperationType.Unary,
+    # Nop
+    Keyword("NOP"): OperationType.Nop
+}
+
+
+LANGUAGE_KEYWORDS: List[Keyword] = list(LANGUAGE_OPTYPES.keys())
