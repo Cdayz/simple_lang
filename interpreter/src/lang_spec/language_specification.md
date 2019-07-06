@@ -27,3 +27,22 @@ In SimpleLang only that operations is allowed and implemented:
 11) `AND, OR, XOR, NOT` - bit operations
 12) `PRINT (@|)(A|r)` - print value of register or memory by reg.pointer to stdout
 13) `INPUT (@|)(A|r)` - read ONE NUMBER from stdin and write to register or to memory point
+
+
+### Bytecode structure
+
+Operation bytecode:
+
+| 2 byte  | 1 byte | 4 byte | 1 byte | 4 byte |
+| op_code | arg_ty | op_arg | arg_ty | op_arg |
+
+one operation will be encoded to (2+1+4+1+4) = 12 byte
+
+if operation doesn't have any of arguments pad_sym will be used
+and arg_type will be set as pad_symbol!
+
+1 byte before every argument is placeholder for argument type
+(e.g. reference, register or in-place value)
+
+4 byte arguments size needed for in-place values
+In-place values is a 32-bit integers only!
