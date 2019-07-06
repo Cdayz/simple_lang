@@ -15,6 +15,11 @@ LANGUAGE_OPTYPES: Dict[Keyword, OperationType] = {
     Keyword("SUB"): OperationType.Binary,
     Keyword("DIV"): OperationType.Binary,
     Keyword("MUL"): OperationType.Binary,
+    # Binary math
+    Keyword("AND"): OperationType.Binary,
+    Keyword("OR"): OperationType.Binary,
+    Keyword("XOR"): OperationType.Binary,
+    Keyword("NOT"): OperationType.Unary,
     # Pointers, Equations
     Keyword("MOV"): OperationType.Binary,
     Keyword("CMP"): OperationType.Binary,
@@ -26,6 +31,9 @@ LANGUAGE_OPTYPES: Dict[Keyword, OperationType] = {
     Keyword("JMP_NE"): OperationType.Unary,
     # Labeling
     Keyword("LABEL"): OperationType.Unary,
+    # IO
+    Keyword("PRINT"): OperationType.Unary,
+    Keyword("INPUT"): OperationType.Unary,
     # Nop
     Keyword("NOP"): OperationType.Nop
 }
