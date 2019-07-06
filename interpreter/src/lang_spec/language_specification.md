@@ -34,6 +34,7 @@ In SimpleLang only that operations is allowed and implemented:
 Operation bytecode:
 
 | 2 byte  | 1 byte | 4 byte | 1 byte | 4 byte |
+-----------------------------------------------
 | op_code | arg_ty | op_arg | arg_ty | op_arg |
 
 one operation will be encoded to (2+1+4+1+4) = 12 byte
@@ -46,3 +47,15 @@ and arg_type will be set as pad_symbol!
 
 4 byte arguments size needed for in-place values
 In-place values is a 32-bit integers only!
+
+
+### Bytecode invalidation
+
+Every bytecode file have one metadata section before real code
+
+#### Metadata section structure
+
+|    2 byte    | 4 byte |
+|magical number|   crc  |
+
+CRC sum is used for code invalidation.
