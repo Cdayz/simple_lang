@@ -16,9 +16,10 @@ class OperationType(enum.Enum):
 class OperationArgumentType(enum.Enum):
     """Enum of different types of operation arguments."""
 
-    Register = 0
-    RegisterPointer = 1
-    InPlaceValue = 2
+    Nop = 0
+    Register = 1
+    RegisterPointer = 2
+    InPlaceValue = 3
 
 
 @dataclasses.dataclass
