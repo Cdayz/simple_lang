@@ -22,6 +22,15 @@ from interpreter.src.parser.operation import (
     OperationArgumentType,
 )
 
+LABELS_OR_JUMPS = (
+    "LABEL",
+    "JMP",
+    "JMP_NE",
+    "JMP_EQ",
+    "JMP_GT",
+    "JMP_LT"
+)
+
 NOP_ARG = OperationArgument(
     arg_word=0,
     arg_type=OperationArgumentType.Nop
@@ -34,6 +43,10 @@ class Parser:
     Provides parse method wich parses code string into list of operations
     which need to perform.
     """
+
+    def __init__(self):
+        """Initialize labels table used for normal jumps."""
+        self.labels_table: typing.Dict[str, int] = {}
 
     def parse(self, code: str) -> typing.List[Operation]:
         """Parse code into list of line by line operations to execute.
@@ -106,7 +119,8 @@ class Parser:
 
         elif op_type is OperationType.Unary:
             argument = args.pop()
-            arg1 = self.parse_argument(argument)
+            is_label_or_jump = operation in LABELS_OR_JUMPS
+            arg1 = self.parse_argument(argument, is_label_or_jump)
 
             return Operation(
                 op_type=op_type,
@@ -128,7 +142,7 @@ class Parser:
             op_args=arg12
         )
 
-    def parse_argument(self, argument: str):
+    def parse_argument(self, argument: str, is_label_or_jump: bool = False):
         """Parse argument for operation.
 
         Check the argument type and build OperationArgument object.
@@ -161,6 +175,17 @@ class Parser:
                 arg_word = int(argument)
             except ValueError:
                 raise BadInPlaceValue(argument)
+
+        elif is_label_or_jump:
+            arg_type = OperationArgumentType.Label
+
+            if argument in self.labels_table:
+                label_index = self.labels_table[argument]
+            else:
+                label_index = max(self.labels_table.values() or [0, ]) + 1
+                self.labels_table[argument] = label_index
+
+            arg_word = label_index
 
         else:
             raise BadOperationArgument(argument)
