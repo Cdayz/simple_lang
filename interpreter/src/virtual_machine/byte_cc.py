@@ -11,7 +11,7 @@ from interpreter.src.virtual_machine.bytecode import BYTECODES, Keyword
 from interpreter.src.virtual_machine.errors import BadOperationSize
 
 OP_SIZE: int = 12
-MAG_NUM: bytes = bytes([11, 10])
+MAG_NUM: int = 0x1235
 
 
 class BytecodeCompiler:
@@ -20,7 +20,7 @@ class BytecodeCompiler:
     Compiles operations to bytecode.
     """
 
-    def __init__(self, file_crc: bytes):
+    def __init__(self, file_crc: int):
         """Initialize compiler with current file crc."""
         self.file_crc = file_crc
 
@@ -47,16 +47,14 @@ class BytecodeCompiler:
 
         return bytecode_buffer
 
-    def generate_metadata(self, file_crc: bytes) -> bytes:
+    def generate_metadata(self, file_crc: int) -> bytes:
         """Generate bytecode-file metadata.
 
-        :param bytes file_crc: CRC sum of file to compile
+        :param int file_crc: CRC sum of file to compile
 
         :return: Bytes of metadata
         :rtype: bytes
         """
-        assert len(file_crc) == 4
-
         return struct.pack('hI', MAG_NUM, file_crc)
 
     def encode_operation(self, operation: Operation) -> bytes:
@@ -74,12 +72,13 @@ class BytecodeCompiler:
 
         arguments = list(
             itertools.chain(
-                *[(arg.arg_type, arg.arg_word) for arg in operation.op_args]
+                *[(arg.arg_type.value, arg.arg_word)
+                  for arg in operation.op_args]
             )
         )
 
         operation_code = struct.pack(
-            'hbibi',
+            '=hbibi',
             op_code, *arguments
         )
 
