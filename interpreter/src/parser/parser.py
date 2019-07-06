@@ -11,7 +11,9 @@ from interpreter.src.lexer.keywords import (
 )
 from interpreter.src.parser.errors import (
     BadOperationIdentifier,
-    BadOperationArgument
+    BadOperationArgument,
+    BadInPlaceValue,
+    PrasingError
 )
 from interpreter.src.parser.operation import (
     Operation,
@@ -36,15 +38,14 @@ class Parser:
 
         :param str code: Source code for parsing into Operations
 
-        :raise BadOperationIdentifier: if any bad operation identified in code
-        :raise BadOperationArgument: If any argument not in argument types
+        :raise ParserError: If any parser errors occured
 
         :return: List of Operations parsed from code
         :rtype: List[Operation]
         """
         operations = []
 
-        for line in code.split('\n'):
+        for line_index, line in enumerate(code.split('\n')):
 
             line_unindented = itertools.dropwhile(str.isspace, line)
             line_without_comments = ''.join(
@@ -57,7 +58,10 @@ class Parser:
             if not line_without_comments:
                 continue
 
-            operation = self.parse_line(line_without_comments)
+            try:
+                operation = self.parse_line(line_without_comments)
+            except Exception as e:
+                raise PrasingError(line_index, line, e)
 
             operations.append(operation)
 
@@ -74,6 +78,7 @@ class Parser:
 
         :raise BadOperationIdentifier: if operation is not in allowed
         :raise BadOperationArgument: If any argument not in argument types
+        :raise BadInPlaceValue: If argument is not an integer
 
         :return: Operation object builded from code line
         :rtype: :class:`~.Operation`
@@ -126,6 +131,7 @@ class Parser:
         :param str argument: Argument string from code
 
         :raise BadOperationArgument: If argument not in allowed argument types
+        :raise BadInPlaceValue: If argument is not an integer
 
         :return: OperationArgument object builded from argument string
         :rtype: :class:`~.OperationArgument`
@@ -141,16 +147,22 @@ class Parser:
                 if is_reference
                 else OperationArgumentType.Register
             )
+            arg_word = LANGUAGE_REGISTERS.index(Register(argument))
 
         elif is_inplace(argument):
             arg_type = OperationArgumentType.InPlaceValue
+
+            try:
+                arg_word = int(argument)
+            except ValueError:
+                raise BadInPlaceValue(argument)
 
         else:
             raise BadOperationArgument(argument)
 
         return OperationArgument(
             arg_type=arg_type,
-            arg_word=argument
+            arg_word=arg_word
         )
 
 
