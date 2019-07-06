@@ -32,7 +32,7 @@ class OperationArgument:
     """
 
     arg_type: OperationArgumentType
-    arg_word: str
+    arg_word: int
 
 
 @dataclasses.dataclass
