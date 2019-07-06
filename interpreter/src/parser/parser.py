@@ -78,7 +78,7 @@ class Parser:
         :return: Operation object builded from code line
         :rtype: :class:`~.Operation`
         """
-        words = line.split(' ')
+        words = line.replace(',', '').split(' ')
 
         operation, *args = words
 
@@ -104,7 +104,6 @@ class Parser:
                 op_args=[arg1, ]
             )
 
-        # FIXME: argumets parse on Binary operation didn't check , symbol
         # Binary operation
         arguments = [args.pop(), args.pop()]
 
