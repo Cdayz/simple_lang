@@ -22,6 +22,11 @@ from interpreter.src.parser.operation import (
     OperationArgumentType,
 )
 
+NOP_ARG = OperationArgument(
+    arg_word=0,
+    arg_type=OperationArgumentType.Nop
+)
+
 
 class Parser:
     """Code parser class.
@@ -96,7 +101,7 @@ class Parser:
             return Operation(
                 op_type=op_type,
                 op_word=operation,
-                op_args=[]
+                op_args=[NOP_ARG, NOP_ARG]
             )
 
         elif op_type is OperationType.Unary:
@@ -106,7 +111,7 @@ class Parser:
             return Operation(
                 op_type=op_type,
                 op_word=operation,
-                op_args=[arg1, ]
+                op_args=[arg1, NOP_ARG]
             )
 
         # Binary operation
