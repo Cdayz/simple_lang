@@ -122,10 +122,15 @@ class Parser:
             is_label_or_jump = operation in LABELS_OR_JUMPS
             arg1 = self.parse_argument(argument, is_label_or_jump)
 
+            if operation == 'NOT':
+                op_args = [arg1, arg1]
+            else:
+                op_args = [arg1, NOP_ARG]
+
             return Operation(
                 op_type=op_type,
                 op_word=operation,
-                op_args=[arg1, NOP_ARG]
+                op_args=op_args
             )
 
         # Binary operation
