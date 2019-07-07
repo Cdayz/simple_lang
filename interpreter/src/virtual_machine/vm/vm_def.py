@@ -26,6 +26,19 @@ class VmRegister:
     value: int
 
 
+def get_registers_map() -> typing.Dict[int, VmRegister]:
+    """Generates registers mapping."""
+    return {
+        reg_index: VmRegister(name=name, value=0)
+        for reg_index, name in enumerate(LANGUAGE_REGISTERS)
+    }
+
+
+def get_default_memory() -> typing.List[int]:
+    """Generates base memory."""
+    return [0 for _ in range(VM_MEM_SIZE)]
+
+
 @dataclasses.dataclass
 class VmState:
     """Virtual Machine State representation.
@@ -45,15 +58,17 @@ class VmState:
     :type vm_labels: Dict[int, int]
     """
 
-    # Registers
-    vm_registers: typing.Dict[int, VmRegister] = {
-        reg_index: VmRegister(name=name, value=0)
-        for reg_index, name in enumerate(LANGUAGE_REGISTERS)
-    }
-    # Memory
-    vm_memory: typing.List[int] = [0 for _ in range(VM_MEM_SIZE)]
     # Code execution
+    vm_code_buffer: io.BytesIO
     vm_code_pointer: int = 0
-    vm_code_buffer: io.BytesIO = dataclasses.field(default_factory=io.BytesIO)
+
+    # Registers
+    vm_registers: typing.Dict[int, VmRegister] = \
+        dataclasses.field(default_factory=get_registers_map)
+
+    # Memory
+    vm_memory: typing.List[int] = \
+        dataclasses.field(default_factory=get_default_memory)
+
     # Labels map, key - label, value label position
     vm_labels: typing.Dict[int, int] = dataclasses.field(default_factory=dict)
