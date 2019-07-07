@@ -42,12 +42,16 @@ class BytecodeCompiler:
         bytecode_buffer.write(metadata)
 
         for operation in code:
-            encoded_operation = self.encode_operation(operation)
+            try:
+                encoded_operation = self.encode_operation(operation)
+            except KeyError:
+                raise Exception("Bad opcode provided")
+            except struct.error:
+                raise BadOperationSize("Bad size of arguments provided")
 
-            op_writed = bytecode_buffer.write(encoded_operation)
+            bytecode_buffer.write(encoded_operation)
 
-            if op_writed != OP_SIZE:
-                raise BadOperationSize(operation, op_writed)
+        bytecode_buffer.seek(0)
 
         return bytecode_buffer
 
