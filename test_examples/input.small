@@ -1,0 +1,26 @@
+LABEL MAIN
+    PRINT r2
+    CMP r2, 0
+
+    ; Prepare fibonacci
+    MOV r3, 1
+
+INPUT r1
+
+LABEL FIBONACCI
+    ; Calculate n fibonacci number
+    ; Store result at r2
+
+    MOV A, r2
+    ADD A, r3
+
+    MOV r2, r3
+    MOV r3, A
+
+    SUB r1, 1
+
+    ; Loop while r1 != 0
+    CMP r1, 0
+    JMP_NE FIBONACCI
+
+    JMP MAIN_RET
