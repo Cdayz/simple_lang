@@ -118,7 +118,7 @@ class Parser:
             )
 
         elif op_type is OperationType.Unary:
-            argument = args.pop()
+            argument = args[0]
             is_label_or_jump = operation in LABELS_OR_JUMPS
             arg1 = self.parse_argument(argument, is_label_or_jump)
 
@@ -134,7 +134,7 @@ class Parser:
             )
 
         # Binary operation
-        arguments = [args.pop(), args.pop()]
+        arguments = [args[0], args[1]]
 
         arg12 = [
             self.parse_argument(arg)
