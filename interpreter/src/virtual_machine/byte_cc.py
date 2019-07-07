@@ -35,7 +35,11 @@ class BytecodeCompiler:
         :return: BytesIO with written bytecode
         :rtype: io.BytesIO
         """
-        bytecode_buffer = io.BytesIO(self.generate_metadata(self.file_crc))
+        bytecode_buffer = io.BytesIO()
+
+        metadata = self.generate_metadata(self.file_crc)
+
+        bytecode_buffer.write(metadata)
 
         for operation in code:
             encoded_operation = self.encode_operation(operation)
