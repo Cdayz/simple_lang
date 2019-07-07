@@ -13,7 +13,7 @@ from interpreter.src.parser.errors import (
     BadOperationIdentifier,
     BadOperationArgument,
     BadInPlaceValue,
-    PrasingError
+    ParsingError
 )
 from interpreter.src.parser.operation import (
     Operation,
@@ -79,7 +79,7 @@ class Parser:
             try:
                 operation = self.parse_line(line_without_comments)
             except Exception as e:
-                raise PrasingError(line_index, line, e)
+                raise ParsingError(line_index, line, e)
 
             operations.append(operation)
 

@@ -13,7 +13,7 @@ class BadInPlaceValue(Exception):
     """Bad in-place value provided as argument."""
 
 
-class PrasingError(Exception):
+class ParsingError(Exception):
     """Parsing error."""
 
     def __init__(self, line_index, line, exception):
