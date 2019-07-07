@@ -49,6 +49,9 @@ def vm_print(vm_state: VmState, *args, op_bytecode=None, **kwargs) -> VmState:
         mem_address = vm_state.vm_registers[arg1].value
         value_for_print = vm_state.vm_memory[mem_address]
 
+    elif arg1_type == 4:  # In-place value
+        value_for_print = arg1
+
     else:
         raise Exception("Bad print source")
 
