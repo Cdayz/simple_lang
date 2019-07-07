@@ -12,7 +12,6 @@ from interpreter.src.lexer.keywords import (
 from interpreter.src.parser.errors import (
     BadOperationIdentifier,
     BadOperationArgument,
-    BadInPlaceValue,
     ParsingError
 )
 from interpreter.src.parser.operation import (
@@ -101,7 +100,10 @@ class Parser:
         :return: Operation object builded from code line
         :rtype: :class:`~.Operation`
         """
-        words = line.replace(',', '').split(' ')
+        words = line.replace(',', ':')\
+                    .replace(': ', ' ')\
+                    .replace(':', ' ')\
+                    .split(' ')
 
         operation, *args = words
 
@@ -175,11 +177,7 @@ class Parser:
 
         elif is_inplace(argument):
             arg_type = OperationArgumentType.InPlaceValue
-
-            try:
-                arg_word = int(argument)
-            except ValueError:
-                raise BadInPlaceValue(argument)
+            arg_word = int(argument)
 
         elif is_label_or_jump:
             arg_type = OperationArgumentType.Label
