@@ -1,3 +1,5 @@
+"""Module with IO operations for VmState execution."""
+
 from interpreter.src.virtual_machine.vm.vm_def import (
     VmState,
     VM_OPERATION_TO_BYTECODE

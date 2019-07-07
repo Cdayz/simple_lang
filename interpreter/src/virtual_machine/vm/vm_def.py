@@ -1,3 +1,5 @@
+"""Module with basic definitions for Virtual Machine."""
+
 import io
 import typing
 import dataclasses

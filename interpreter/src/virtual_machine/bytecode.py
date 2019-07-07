@@ -1,3 +1,5 @@
+"""Module with predefined bytecodes."""
+
 from typing import Dict
 
 from interpreter.src.lexer.keywords import Keyword, LANGUAGE_OPTYPES

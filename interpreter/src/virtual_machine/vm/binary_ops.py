@@ -1,3 +1,5 @@
+"""Module with binary operations implementations on VmState."""
+
 import typing
 import operator
 
@@ -59,6 +61,9 @@ def gen_binary_operation(operation_name: str,
             raise Exception(f"Bad argument on {operation_name}")
 
         return vm_state
+
+    # Need for easy debugging
+    gen.__name__ = f"vm_{operation_name.lower()}"
 
     return gen
 

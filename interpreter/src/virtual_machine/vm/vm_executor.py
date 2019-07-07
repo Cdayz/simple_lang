@@ -1,3 +1,5 @@
+"""Module with main executor of VM."""
+
 import io
 import struct
 

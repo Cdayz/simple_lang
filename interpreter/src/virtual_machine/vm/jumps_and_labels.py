@@ -1,3 +1,5 @@
+"""Module with jump-related operations implementation."""
+
 import typing
 
 from interpreter.src.virtual_machine.vm.vm_def import (
@@ -42,6 +44,9 @@ def generate_jump(jmp_name: str, cond: typing.Callable):
             vm_state.vm_code_pointer = vm_state.vm_labels[label_index]
 
         return vm_state
+
+    # Need for easy debugging
+    gen.__name__ = f"vm_{jmp_name.lower()}"
 
     return gen
 

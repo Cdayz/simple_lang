@@ -1,3 +1,5 @@
+"""Module with helper functions for VmState execution."""
+
 import copy
 import typing
 import struct
