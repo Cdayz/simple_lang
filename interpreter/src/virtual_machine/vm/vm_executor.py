@@ -22,11 +22,14 @@ def initialize_vm(bytecode: io.BytesIO) -> VmState:
     )
 
 
-def execute_bytecode(bytecode: io.BytesIO):
+def execute_bytecode(bytecode: io.BytesIO) -> VmState:
     """Execute bytecode into Virtual Machine.
 
     :param bytecode: Bytecode for executing
     :type bytecode: io.BytesIO
+
+    :return: VmState at end of executing
+    :rtype: :class:`~.VmState`
     """
     code_size = len(bytecode.read())
     bytecode.seek(0)
@@ -42,3 +45,5 @@ def execute_bytecode(bytecode: io.BytesIO):
         )
 
         vm_state = VM_BYTECODE_FUNC[opcode](vm_state)
+
+    return vm_state
