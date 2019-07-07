@@ -7,6 +7,8 @@ verify_ssl = true
 pylint = "*"
 flake8 = "*"
 mypy = "*"
+rope = "*"
+pytest = "*"
 
 [packages]
 
