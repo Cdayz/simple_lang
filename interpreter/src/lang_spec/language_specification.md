@@ -25,8 +25,10 @@ In SimpleLang only that operations is allowed and implemented:
 9) `CMP A, r` - compare value of accumulator with second operand and set specific registers
 10) `JMP_EQ, JMP_LT, JMP_GT, JMP_NE` - conditional jumps
 11) `AND, OR, XOR, NOT` - bit operations
-12) `PRINT (@|)(A|r)` - print value of register or memory by reg.pointer to stdout
+12) `PRINT (@|)(A|r|num)` - print value of register or memory by reg.pointer to stdout
 13) `INPUT (@|)(A|r)` - read ONE NUMBER from stdin and write to register or to memory point
+14) `CALL lbl` - call subroutine under label lbl
+15) `RET` - return from subroutine (Only one subroutine can be called at the monent)
 
 
 ### Bytecode structure
