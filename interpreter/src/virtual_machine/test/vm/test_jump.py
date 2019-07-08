@@ -7,6 +7,9 @@ from interpreter.src.virtual_machine.vm.jumps_and_labels import (
     generate_jump,
     vm_label,
     vm_nop,
+    vm_end,
+    vm_call,
+    vm_ret,
     vm_cmp,
     VmState
 )
@@ -146,3 +149,62 @@ def test_vm_cmp_error_2_arg():
 
     with pytest.raises(Exception):
         vm_cmp(base_state)
+
+
+def test_vm_end():
+    bcode = b"".join(
+        [gen_bytecode("MOV r1, 12"),
+         gen_bytecode("END")]
+    )
+    base_state = VmState(
+        vm_code_buffer=io.BytesIO(bcode),
+        vm_code_pointer=12,
+    )
+
+    base_state.vm_code_buffer.seek(12)
+
+    state = vm_end(base_state)
+
+    last_code_addr = base_state.vm_code_pointer
+
+    end_pointer = len(base_state.vm_code_buffer.read1())
+
+    assert state.vm_code_pointer == (last_code_addr + end_pointer)
+
+
+def test_vm_call():
+    base_state = VmState(
+        vm_code_buffer=io.BytesIO(gen_bytecode("CALL abc")),
+        vm_code_pointer=0,
+        vm_labels={1: 14}
+    )
+
+    state = vm_call(base_state)
+
+    assert state.vm_code_pointer == 14+12
+
+    assert state.vm_call_stack == [0, ]
+
+
+def test_vm_ret():
+    base_state = VmState(
+        vm_code_buffer=io.BytesIO(gen_bytecode("RET")),
+        vm_code_pointer=0,
+        vm_call_stack=[12, ]
+    )
+
+    state = vm_ret(base_state)
+
+    assert state.vm_code_pointer == 12 + 12
+
+    assert state.vm_call_stack == []
+
+
+def test_vm_ret_error():
+    base_state = VmState(
+        vm_code_buffer=io.BytesIO(gen_bytecode("RET")),
+        vm_code_pointer=0,
+    )
+
+    with pytest.raises(Exception):
+        vm_ret(base_state)
