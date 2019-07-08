@@ -9,7 +9,8 @@ from interpreter.src.parser.parser import (
     OperationType,
     NOP_ARG,
     BadOperationArgument,
-    BadOperationIdentifier
+    BadOperationIdentifier,
+    ParsingError
 )
 
 
@@ -89,6 +90,37 @@ def test_parser_ok():
     ]
 
     assert operations == expected_ops
+
+
+def test_parser_error():
+    code = """
+    LABEL L
+    MOV error, error
+    """
+
+    with pytest.raises(ParsingError):
+        Parser().parse(code)
+
+
+def test_parser_hack_not():
+    code = "NOT r1"
+
+    parsed_ops = Parser().parse(code)
+
+    expected = [
+        Operation(
+            op_word="NOT",
+            op_type=OperationType.Unary,
+            op_args=[
+                OperationArgument(arg_type=OperationArgumentType.Register,
+                                  arg_word=0),
+                OperationArgument(arg_type=OperationArgumentType.Register,
+                                  arg_word=0),
+            ]
+        )
+    ]
+
+    assert parsed_ops == expected
 
 
 def test_parser_parse_arg():
