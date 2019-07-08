@@ -38,6 +38,9 @@ LANGUAGE_OPTYPES: Dict[Keyword, OperationType] = {
     Keyword("NOP"): OperationType.Nop,
     # End of program
     Keyword("END"): OperationType.Nop,
+    # Control flow, through calls and returns used subroutins
+    Keyword("CALL"): OperationType.Unary,
+    Keyword("RET"): OperationType.Nop,
 }
 
 
