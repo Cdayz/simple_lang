@@ -166,8 +166,6 @@ def vm_end(vm_state: VmState, *args, op_bytecode=None, **kwargs) -> VmState:
 
     assert VM_OPERATION_TO_BYTECODE[op_code] == "END"
 
-    print('END')
-
     last_code_addr = vm_state.vm_code_pointer
 
     end_pointer = len(vm_state.vm_code_buffer.read1())
