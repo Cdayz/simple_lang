@@ -35,7 +35,9 @@ LANGUAGE_OPTYPES: Dict[Keyword, OperationType] = {
     Keyword("PRINT"): OperationType.Unary,
     Keyword("INPUT"): OperationType.Unary,
     # Nop
-    Keyword("NOP"): OperationType.Nop
+    Keyword("NOP"): OperationType.Nop,
+    # End of program
+    Keyword("END"): OperationType.Nop,
 }
 
 
