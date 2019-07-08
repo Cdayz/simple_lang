@@ -61,7 +61,8 @@ vm_jump_ne = generate_jump("JMP_NE", lambda state: state.vm_registers[8].value)
 
 def set_called_subroutine(state: VmState) -> bool:
     """Set subroutine call."""
-    state.vm_last_call_code_pointer = state.vm_code_pointer
+    state.vm_call_stack.append(state.vm_code_pointer)
+
     return True
 
 
@@ -74,10 +75,12 @@ def vm_ret(vm_state: VmState, *args, op_bytecode=None, **kwargs) -> VmState:
 
     assert VM_OPERATION_TO_BYTECODE[op_code] == "RET"
 
-    if vm_state.vm_last_call_code_pointer == -1:
+    try:
+        previuous_routine = vm_state.vm_call_stack.pop()
+    except IndexError:
         raise Exception("Bad RET before CALL.")
 
-    vm_state.vm_code_pointer = vm_state.vm_last_call_code_pointer
+    vm_state.vm_code_pointer = previuous_routine
 
     return vm_state
 
