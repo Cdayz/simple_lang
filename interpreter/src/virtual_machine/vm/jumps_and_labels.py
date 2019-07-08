@@ -59,6 +59,29 @@ vm_jump_gt = generate_jump("JMP_GT", lambda state: state.vm_registers[7].value)
 vm_jump_ne = generate_jump("JMP_NE", lambda state: state.vm_registers[8].value)
 
 
+def set_called_subroutine(state: VmState) -> bool:
+    """Set subroutine call."""
+    state.vm_last_call_code_pointer = state.vm_code_pointer
+    return True
+
+
+vm_call = generate_jump("CALL", set_called_subroutine)
+
+
+@vm_operation
+def vm_ret(vm_state: VmState, *args, op_bytecode=None, **kwargs) -> VmState:
+    op_code, _, _, _, _ = op_bytecode
+
+    assert VM_OPERATION_TO_BYTECODE[op_code] == "RET"
+
+    if vm_state.vm_last_call_code_pointer == -1:
+        raise Exception("Bad RET before CALL.")
+
+    vm_state.vm_code_pointer = vm_state.vm_last_call_code_pointer
+
+    return vm_state
+
+
 @vm_operation
 def vm_label(vm_state: VmState, *args, op_bytecode=None, **kwargs) -> VmState:
     """LABEL operation for virtual machine."""
