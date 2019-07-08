@@ -27,7 +27,8 @@ LABELS_OR_JUMPS = (
     "JMP_NE",
     "JMP_EQ",
     "JMP_GT",
-    "JMP_LT"
+    "JMP_LT",
+    "CALL"
 )
 
 NOP_ARG = OperationArgument(
