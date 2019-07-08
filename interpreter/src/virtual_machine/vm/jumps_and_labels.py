@@ -128,6 +128,24 @@ def vm_nop(vm_state: VmState, *args, op_bytecode=None, **kwargs) -> VmState:
     """NOP operation for virtual machine."""
     op_code, _, _, _, _ = op_bytecode
 
-    assert VM_OPERATION_TO_BYTECODE[op_code] == "NOP"
+    # assert VM_OPERATION_TO_BYTECODE[op_code] == "NOP"
+
+    return vm_state
+
+
+@vm_operation
+def vm_end(vm_state: VmState, *args, op_bytecode=None, **kwargs) -> VmState:
+    """END operation for virtual machine."""
+    op_code, _, _, _, _ = op_bytecode
+
+    assert VM_OPERATION_TO_BYTECODE[op_code] == "END"
+
+    print('END')
+
+    last_code_addr = vm_state.vm_code_pointer
+
+    end_pointer = len(vm_state.vm_code_buffer.read1())
+
+    vm_state.vm_code_pointer = last_code_addr + end_pointer
 
     return vm_state
