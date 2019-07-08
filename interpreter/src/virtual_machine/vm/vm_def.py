@@ -74,3 +74,6 @@ class VmState:
 
     # Labels map, key - label, value label position
     vm_labels: typing.Dict[int, int] = dataclasses.field(default_factory=dict)
+
+    # Used for RET and CALL
+    vm_last_call_code_pointer: int = -1
