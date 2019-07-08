@@ -36,10 +36,10 @@ In SimpleLang only that operations is allowed and implemented:
 ### Bytecode structure
 
 Operation bytecode:
-
+```
 | 2 byte  | 1 byte | 4 byte | 1 byte | 4 byte |
------------------------------------------------
 | op_code | arg_ty | op_arg | arg_ty | op_arg |
+```
 
 one operation will be encoded to (2+1+4+1+4) = 12 byte
 
@@ -58,10 +58,10 @@ In-place values is a 32-bit integers only!
 Every bytecode file have one metadata section before real code
 
 #### Metadata section structure
-
+```
 |    2 byte    | 4 byte |
 |magical number|   crc  |
-
+```
 CRC sum is used for code invalidation.
 
 
