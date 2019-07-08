@@ -1,26 +1,28 @@
 LABEL MAIN
+    INPUT r1
+    CALL FIBONACCI
     PRINT r2
-    CMP r2, 0
-
-    ; Prepare fibonacci
-    MOV r3, 1
-
-INPUT r1
+    END
 
 LABEL FIBONACCI
-    ; Calculate n fibonacci number
-    ; Store result at r2
+    ; Prepare fibonacci
+    MOV r2, 0
+    MOV r3, 1
 
-    MOV A, r2
-    ADD A, r3
+    LABEL FIBONACCI_LOOP
+        ; Calculate n fibonacci number
+        ; Store result at r2
 
-    MOV r2, r3
-    MOV r3, A
+        MOV A, r2
+        ADD A, r3
 
-    SUB r1, 1
+        MOV r2, r3
+        MOV r3, A
 
-    ; Loop while r1 != 0
-    CMP r1, 0
-    JMP_NE FIBONACCI
+        SUB r1, 1
 
-    JMP MAIN_RET
+        ; Loop while r1 != 0
+        CMP r1, 0
+        JMP_GT FIBONACCI_LOOP
+
+    RET
