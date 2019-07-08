@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Cdayz/simple_lang.svg?branch=master)](https://travis-ci.org/Cdayz/simple_lang)
+
 # Simple Lang Specification
 
 SimpleLang is a subset of assembler languages implemented in virtual machine
