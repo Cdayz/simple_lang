@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Cdayz/simple_lang.svg?branch=master)](https://travis-ci.org/Cdayz/simple_lang)
+[![Build Status](https://travis-ci.org/Cdayz/simple_lang.svg?branch=master)](https://travis-ci.org/Cdayz/simple_lang) [![codecov](https://codecov.io/gh/Cdayz/simple_lang/branch/master/graph/badge.svg)](https://codecov.io/gh/Cdayz/simple_lang)
 
 # Simple Lang Specification
 
