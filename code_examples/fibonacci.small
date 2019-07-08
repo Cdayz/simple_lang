@@ -21,7 +21,7 @@ LABEL FIBONACCI
 
         SUB r1, 1
 
-        ; Loop while r1 != 0
+        ; Loop while r1 > 0
         CMP r1, 0
         JMP_GT FIBONACCI_LOOP
 

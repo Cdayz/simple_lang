@@ -1,0 +1,46 @@
+LABEL MAIN
+    MOV r1, 12
+    MOV r2, 13
+    CALL ADDER
+    PRINT r3
+    CALL SUBBER
+    PRINT r3
+    ; CALL RECURSION
+    END
+
+LABEL ADDER
+    MOV A, r1
+    ADD A, r2
+    MOV r3, A
+    RET
+
+LABEL SUBBER
+    MOV A, r1
+    SUB A, r2
+    MOV r3, A
+    RET
+
+LABEL PRINT_MEM
+    PRINT @r1
+    RET
+
+LABEL CYCLE_MEMORY_PRINT
+    MOV r1, 0
+    CALL PRINT_MEM
+    CMP r1, 1024
+    JMP_LT CYCLE_MEMORY_PRINT
+    RET
+
+LABEL RECURSION
+    PRINT r1
+    CALL RECURSION
+    RET
+
+LABEL CHANGE_MEM_CELLS
+    ; r1 - adders of first
+    ; r2 - adders of second
+    MOV r3, @r1
+    MOV r4, @r2
+    MOV @r1, r4
+    MOV @r2, r3
+    RET
