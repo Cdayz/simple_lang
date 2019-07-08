@@ -11,6 +11,8 @@ from interpreter.src.virtual_machine.vm.binary_ops import (
 )
 from interpreter.src.virtual_machine.vm.jumps_and_labels import (
     vm_end,
+    vm_call,
+    vm_ret,
     vm_nop,
     vm_cmp,
     vm_jmp,
@@ -33,7 +35,7 @@ FUNCTIONS = (
     vm_and, vm_or, vm_xor, vm_not,
     vm_mov, vm_cmp, vm_jmp, vm_jump_eq,
     vm_jump_gt, vm_jump_lt, vm_jump_ne,
-    vm_label, vm_print, vm_input, vm_nop, vm_end
+    vm_label, vm_print, vm_input, vm_nop, vm_end, vm_call, vm_ret
 )
 
 
