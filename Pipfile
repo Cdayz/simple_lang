@@ -10,6 +10,8 @@ mypy = "*"
 rope = "*"
 pytest = "*"
 mock = "*"
+pytest-cov = "*"
+coverage = "*"
 
 [packages]
 
